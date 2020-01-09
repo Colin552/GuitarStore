@@ -1,59 +1,75 @@
 import React from 'react';
 import styled from 'styled-components';
-import CategoriesSidebar from '../component/Shop/Sidebars/CategoriesSidebar.js';
+import Sidebar from '../component/Shop/Sidebar';
 import ProductCard from '../component/Shop/ProductCard.js';
+import HeaderDropdown from '../component/Shop/HeaderDropdown.js'
 
-const ProductSearch = () =>{
-    return(
+
+const _ProductSearch = () => {
+    return (
         <ShopContainer>
             <SidebarContainer>
-                <CategoriesSidebar />
+                <Sidebar/>            
             </SidebarContainer>
-            <ProductContainer>
-                <ProductsHeader>
-                    <LeftHeader>Home</LeftHeader>
-                    <RightHeader>Pages 1, 2, 3 ... 10</RightHeader>
-                </ProductsHeader>
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-            </ProductContainer>
+
+            <ShopContent>
+                <ShopHeader>
+                    <HeaderLeft>Home</HeaderLeft>
+                    <HeaderRight>Filter By <HeaderDropdown /> Page: 1, 2, 3 ... 11</HeaderRight>
+                </ShopHeader>
+                <ProductContainer>
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                </ProductContainer>
+                <ShopFooter></ShopFooter>
+            </ShopContent>
         </ShopContainer>
     )
 }
 
-export default ProductSearch;
+export default _ProductSearch;
 
-const LeftHeader = styled.div`
-    display: inline-block;
+const HeaderLeft = styled.div`
 `
 
-const RightHeader = styled.div`
-    display: inline-block;
+const HeaderRight = styled.div`
+
 `
 
-const ProductsHeader = styled.div`
-    grid-column: 1 / 5;
+const ShopHeader = styled.div`
+    margin-left: 10px;
     display: flex;
     justify-content: space-between;
+    padding-bottom: 10px;
 `
-
-const SidebarContainer = styled.div`
-    grid-column: 1;
+const ShopFooter = styled.div`
+    height: 30px;
 `
 
 const ProductContainer = styled.div`
-    grid-column: 2;
     display: grid;
     grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
     margin-left: 10px;
-    column-gap: 10px;
 `
 
 const ShopContainer = styled.div`
     display: grid;
     grid-template-columns: 200px auto;
-    margin-top: 10px;
+    margin-top: 20px;
+`
 
+const SidebarContainer = styled.div`
+    grid-column: 1;
+
+`
+
+const ShopContent = styled.div`
+    grid-column: 2;
 `

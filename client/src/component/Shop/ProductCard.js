@@ -31,6 +31,11 @@ export default withRouter(ProductCard);
 const CardContainer = styled.div`
     border: 1px solid #e5e5e5;
     cursor: pointer;
+    &:hover {
+        transition: 0.25s;
+        box-shadow: 8px 8px 10px #c6c6c6;
+    }
+    transition: 0.25s;
 `
 
 const ProductImage = styled.img`

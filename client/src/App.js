@@ -5,6 +5,7 @@ import Home from './views/Home.js';
 import About from './views/About.js';
 import Contact from './views/Contact.js';
 import ProductSearch from './views/ProductSearch.js';
+
 import Product from './views/Product.js';
 import Login from './views/Login.js';
 import Navbar from './component/Navbar/Navbar.js';
