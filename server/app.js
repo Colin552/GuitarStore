@@ -6,6 +6,9 @@ var logger = require('morgan');
 
 var productsRouter = require('./routes/products')
 var usersRouter = require('./routes/users');
+var salesRouter = require('./routes/sales');
+var shoppingCartRouter = require('./routes/shopping-cart');
+var userOrderRouter = require('./routes/user-orders');
 var client = require('./client');
 
 client.connect();
@@ -20,6 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
+app.use('/sales', salesRouter);
+app.use('/shopping-cart', shoppingCartRouter);
+app.use('/user-order', userOrderRouter);
 
 app.use((req,res,next)=>{
     const err = new Error('Not Found');

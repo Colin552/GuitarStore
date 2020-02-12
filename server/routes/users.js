@@ -48,7 +48,7 @@ router.patch('/', function (req, res, next) {
   res.send('Update user');
 });
 
-/* Update a user. */
+/* Delete a user. */
 router.delete('/', function (req, res, next) {
   res.send('Delete user');
 });

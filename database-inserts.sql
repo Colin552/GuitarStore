@@ -106,11 +106,9 @@ VALUES ('4be0b420-1409-11ea-aaef-0800200c9a66', 'AC3518ANNH', 2599.00, '0d952200
 INSERT INTO product_category (category_id, product_id)
 VALUES ('e3b02e86-0d2b-4757-ba41-bc5c27126d74', '4be0b420-1409-11ea-aaef-0800200c9a66');
 INSERT INTO product_category (category_id, product_id)
-VALUES ('557dcb30-1409-11ea-aaef-0800200c9a66', '4be0b420-1409-11ea-aaef-0800200c9a66');
+VALUES ('61d58012-ce72-4aab-ae50-545a035a3c64', '4be0b420-1409-11ea-aaef-0800200c9a66');
 INSERT INTO product_category (category_id, product_id)
-VALUES ('59c056e0-1409-11ea-aaef-0800200c9a66', '4be0b420-1409-11ea-aaef-0800200c9a66');
-INSERT INTO product_category (category_id, product_id)
-VALUES ('5efbe890-1409-11ea-aaef-0800200c9a66', '4be0b420-1409-11ea-aaef-0800200c9a66');
+VALUES ('b9841ee9-4416-4638-8e91-f2fcb5eb73fe', '4be0b420-1409-11ea-aaef-0800200c9a66');
 
 INSERT INTO user_account (id, first_name, last_name, password, user_type, email)
 VALUES ('6b10b660-1409-11ea-aaef-0800200c9a66', 'Colin', 'strong', 'password', 'a', 'colin@email.com');

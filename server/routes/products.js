@@ -62,15 +62,19 @@ router.get('/category/:id', function (req, res, next) {
         
 });
 
-
 /* Create a product. */
 router.post('/', function (req, res, next) {
     res.send('Create product');
 });
 
-/* Update a user. */
-router.patch('/', function (req, res, next) {
+/* Update a product. */
+router.patch('/:id', function (req, res, next) {
     res.send('Update a product');
+});
+
+/*Delete a product. */
+router.delete('/:id', function (req, res, next) {
+    res.send('Delete a product');
 });
 
 module.exports = router;
