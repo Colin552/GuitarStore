@@ -1,32 +1,20 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import myImage from '../../images/stratocaster.jpg';
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components'
+import myImage from '../../images/INF.png'
 
-class ProductCard extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-    handleClick = () =>{
-        this.props.history.push("/product")
-    }
-    render() {
-        return (
-            <CardContainer onClick={this.handleClick}>
-                
-                <ProductImage src={myImage}></ProductImage>
-                <ProductInfo>
-                    <ProductTitle>Fender stratocaster In Natural Wood Color</ProductTitle>
-                    <ProductPrice>699.99</ProductPrice>
-                </ProductInfo>
-            </CardContainer>
-        );
-    }
+const ProductCard = (props) => {
+    return (
+        <CardContainer>
+            <ProductImage src={myImage}></ProductImage>
+            <ProductInfo>
+                <ProductTitle>{props.brand_name} {props.product_name}</ProductTitle>
+                <ProductPrice>{props.price}</ProductPrice>
+            </ProductInfo>
+        </CardContainer>
+    )
 }
 
-export default withRouter(ProductCard);
-
+export default ProductCard;
 
 const CardContainer = styled.div`
     border: 1px solid #e5e5e5;
@@ -40,6 +28,7 @@ const CardContainer = styled.div`
 
 const ProductImage = styled.img`
     max-height: 250px;
+    max-width: 200px;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -60,4 +49,3 @@ const ProductPrice = styled.p`
     margin-top: 10px;
     margin-left: 10px;
 `
-

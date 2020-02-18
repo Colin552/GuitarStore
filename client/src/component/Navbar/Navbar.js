@@ -9,7 +9,7 @@ const Navbar = () => {
         <header>
             <NavContainer>
                 <NavContent>
-                    <NavBrand to='/'>The Guitar Store</NavBrand>
+                    <NavBrand to='/'>The Riff</NavBrand>
                     <NavLinks>
                         <NavLink to='/shop'>Shop</NavLink>
                         <NavLink to='/about'>About</NavLink>

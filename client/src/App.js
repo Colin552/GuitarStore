@@ -31,6 +31,18 @@ function App() {
               <Route path='/shop' exact>
                 <ProductSearch />
               </Route>
+              <Route path='/shop/electric'>
+                <ProductSearch />
+              </Route>
+              <Route path='/shop/acoustic'>
+                <ProductSearch />
+              </Route> 
+              <Route path='/shop/amplifiers'>
+                <ProductSearch />
+              </Route>
+              <Route path='/shop/tools'>
+                <ProductSearch />
+              </Route>                           
               <Route path='/contact' exact>
                 <Contact />
               </Route>

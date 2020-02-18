@@ -7,23 +7,23 @@ const Sidebar = () => {
         <SidebarOuter>
             <SidebarInner>
                 <SidebarHeader>Categories</SidebarHeader>
-                <Category>Electric Guitars</Category>
-                <Category>Acoustic Guitars</Category>
-                <Category>Amplifiers Guitars</Category>
-                <Category>Parts &amp; tools </Category>
+                <Category to='/shop/electric'>Electric Guitars</Category>
+                <Category to='/shop/acoustic'>Acoustic Guitars</Category>
+                <Category to='/shop/amplifiers'>Amplifiers</Category>
+                <Category to='/shop/tools'>Parts &amp; tools</Category>
 
                 <SidebarInnerHeader>Price</SidebarInnerHeader>
-                <Category>Up to $499</Category>
-                <Category>$500 to $749</Category>
-                <Category>$750 to $1199</Category>
-                <Category>$1199 to $2000</Category>
+                <Category to='/'>Up to $499</Category>
+                <Category to='/'>$500 to $749</Category>
+                <Category to='/'>$750 to $1199</Category>
+                <Category to='/'>$1199 to $2000</Category>
 
                 <SidebarInnerHeader>Brand</SidebarInnerHeader>
-                <Category>Fender</Category>
-                <Category>Gibson</Category>
-                <Category>Squier</Category>
-                <Category>Epiphone</Category>
-                <Category>Ibanez</Category>
+                <Category to='/'>Fender</Category>
+                <Category to='/'>Gibson</Category>
+                <Category to='/'>Squier</Category>
+                <Category to='/'>Epiphone</Category>
+                <Category to='/'>Ibanez</Category>
             </SidebarInner>
         </SidebarOuter>
     )
@@ -56,13 +56,20 @@ const Category = styled(Link)`
     border-radius: 3px;
     &:active{
         color: black;
+        text-decoration: none;
     }
     &:visited{
         color: black;
+        text-decoration: none;
     }
     &:hover{
         background: #dddddd;
         transition: 0.25s;
+        text-decoration: none;
+    }
+    &:link{
+        color: black;
+        text-decoration: none;
     }
 `
 
@@ -77,9 +84,4 @@ const SidebarHeader = styled.p`
 const SidebarOuter = styled.div`
     background: #EBEBEB;
     width: 100%;
-    &:hover {
-        transition: 0.25s;
-        box-shadow: 8px 8px 10px #c6c6c6;
-    }
-    transition: 0.25s;
 `

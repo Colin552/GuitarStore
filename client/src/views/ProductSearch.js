@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Sidebar from '../component/Shop/Sidebar';
 import ProductCard from '../component/Shop/ProductCard.js';
 import HeaderDropdown from '../component/Shop/HeaderDropdown.js'
 
 
-const _ProductSearch = () => {
+const ProductSearch = () => {
+    let [getProducts, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3001/products/')
+        .then(res => res.json())
+        .then(json => setProducts(json))
+    }, []);
+
     return (
         <ShopContainer>
             <SidebarContainer>
-                <Sidebar/>            
+                <Sidebar />
             </SidebarContainer>
 
             <ShopContent>
@@ -18,14 +26,11 @@ const _ProductSearch = () => {
                     <HeaderRight>Filter By <HeaderDropdown /> Page: 1, 2, 3 ... 11</HeaderRight>
                 </ShopHeader>
                 <ProductContainer>
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
+                    {
+                        getProducts.map((p, index) => (
+                            <ProductCard key = {index} product_name = {p.product_name} brand_name = {p.brand_name} price = {p.price}/>
+                        ))
+                    }
                 </ProductContainer>
                 <ShopFooter></ShopFooter>
             </ShopContent>
@@ -33,7 +38,7 @@ const _ProductSearch = () => {
     )
 }
 
-export default _ProductSearch;
+export default ProductSearch;
 
 const HeaderLeft = styled.div`
 `
