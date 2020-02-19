@@ -1,3 +1,5 @@
+
+
 CREATE TABLE brand (
     id UUID NOT NULL,
     brand_name varchar(255) NOT NULL,
@@ -13,6 +15,15 @@ CREATE TABLE product (
     description text,
     PRIMARY KEY (id),
     FOREIGN KEY (brand_id) REFERENCES brand(id)
+);
+
+CREATE TABLE product_image (
+    id UUID NOT NULL,
+    product_id UUID NOT NULL,
+	picture_name text NOT NULL,
+    picture_location text NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (product_id) REFERENCES product(id)
 );
 
 CREATE TABLE category (

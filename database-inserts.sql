@@ -112,3 +112,7 @@ VALUES ('b9841ee9-4416-4638-8e91-f2fcb5eb73fe', '4be0b420-1409-11ea-aaef-0800200
 
 INSERT INTO user_account (id, first_name, last_name, password, user_type, email)
 VALUES ('6b10b660-1409-11ea-aaef-0800200c9a66', 'Colin', 'strong', 'password', 'a', 'colin@email.com');
+
+
+INSERT INTO product_image (id, product_id, picture_name, picture_location)
+VALUES ( '3341d048-6f48-49e6-8fe7-7e7b48cb0ebd','31768c70-140b-11ea-aaef-0800200c9a66', '1.jpg', '../../images/31768c70-140b-11ea-aaef-0800200c9a66');

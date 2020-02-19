@@ -8,7 +8,6 @@ router.get('/', function (req, res, next) {
     let queryString =   "SELECT product.product_name, product.price, brand.brand_name \
                         FROM product INNER JOIN brand ON product.brand_id=brand.id"
 
-
     client.query(queryString,
         (err, products) => {
             if (err) {
