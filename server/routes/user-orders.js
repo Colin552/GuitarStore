@@ -1,25 +1,57 @@
 var express = require('express');
 var router = express.Router();
 var client = require('../client.js');
+var uuid = require('uuid');
 
 router.get('/', function (req, res, next) {
-    res.send('Return all user orders');
+    let queryString = "SELECT * from user_order"
+    client.query(queryString,
+      (err, users) => {
+        if (err) {
+          console.log(err.stack);
+        }
+        else {
+          res.send(users.rows);
+        }
+      })
 });
 
 router.get('/:id', function (req, res, next) {
-    res.send('Return a user order by id');
+    let value = [req.params.id];
+    let queryString = "SELECT * from user_order \
+                        WHERE id = $1";
+  
+    client.query(queryString, value,
+      (err, users) => {
+        if (err) {
+          console.log(err.stack);
+        }
+        else {
+          res.send(users.rows);
+        }
+      })
 });
 
 router.get('/user/:id', function (req, res, next) {
-    res.send('Return all orders from a user');
+    let value = [req.params.id];
+    let queryString = "SELECT * from user_order \
+                        WHERE user_id = $1";
+  
+    client.query(queryString, value,
+      (err, users) => {
+        if (err) {
+          console.log(err.stack);
+        }
+        else {
+          res.send(users.rows);
+        }
+      })
 });
 
-router.get('/user/email/:email', function (req, res, next) {
-    res.send('Return all orders from a user');
-});
 
 router.post('/', function (req, res, next) {
-    res.send('Create a user order');
+    let values = [uuid.v4(), req.body.user_id, ];
+
 });
 
 router.patch('/:id', function (req, res, next) {

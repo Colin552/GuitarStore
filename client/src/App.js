@@ -24,7 +24,7 @@ function App() {
         <Switch>
           <BodyContainer>
             <ContentContainer>
-
+              
               <Route path='/' exact>
                 <Home />
               </Route>
@@ -52,7 +52,7 @@ function App() {
               <Route path='/login' exact>
                 <Login />
               </Route>
-              <Route path='/product' exact>
+              <Route path='/product'>
                 <Product />
               </Route>
 

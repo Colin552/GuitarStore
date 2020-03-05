@@ -1,11 +1,23 @@
 import React from 'react';
-import styled from 'styled-components'
-import myImage from '../../images/INF.png'
+import styled from 'styled-components';
+import noImage from '../../images/INF.png';
+import { useHistory } from 'react-router-dom';
 
 const ProductCard = (props) => {
+    const history = useHistory();
+
+    const productImg = () => {
+        if (typeof(props.image) !== 'undefined'){
+            return <ProductImage src={`data:image/png;base64,${props.image}`}></ProductImage>
+        }
+        else{
+            return <ProductImage src={noImage}></ProductImage>
+        }
+    }
+
     return (
-        <CardContainer>
-            <ProductImage src={myImage}></ProductImage>
+        <CardContainer onClick={() => history.push('/product/' + props.product_name)}>
+            {productImg()}
             <ProductInfo>
                 <ProductTitle>{props.brand_name} {props.product_name}</ProductTitle>
                 <ProductPrice>{props.price}</ProductPrice>

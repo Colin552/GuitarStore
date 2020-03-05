@@ -3,15 +3,36 @@ import styled from 'styled-components';
 import Sidebar from '../component/Shop/Sidebar';
 import ProductCard from '../component/Shop/ProductCard.js';
 import HeaderDropdown from '../component/Shop/HeaderDropdown.js'
-
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from "react-redux";
 
 const ProductSearch = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
     let [getProducts, setProducts] = useState([]);
 
+    switch(history.location.pathname){
+        case "/shop/electric":
+            dispatch({type: 'SET_CATEGORY', value:"ELECTRIC"});
+            break;
+        case "/shop/acoustic":
+            dispatch({type: 'SET_CATEGORY', value:"ACOUSTIC"});
+            break;
+        case "/shop/amplifiers":
+            dispatch({type: 'SET_CATEGORY', value:"AMPLIFIER"});
+            break;
+        case "/shop/tools":
+            dispatch({type: 'SET_CATEGORY', value:"TOOLS"});
+            break;
+        default:
+            dispatch({type: 'SET_CATEGORY', value:""});
+    }
+
     useEffect(() => {
-        fetch('http://localhost:3001/products/')
+        fetch('http://localhost:3000/products/category/7d705cfe-4bff-414d-b451-6f873d35df82')
         .then(res => res.json())
         .then(json => setProducts(json))
+        
     }, []);
 
     return (
@@ -28,10 +49,11 @@ const ProductSearch = () => {
                 <ProductContainer>
                     {
                         getProducts.map((p, index) => (
-                            <ProductCard key = {index} product_name = {p.product_name} brand_name = {p.brand_name} price = {p.price}/>
+                            <ProductCard key = {index} product_name = {p.product_name} brand_name = {p.brand_name} price = {p.price} image = {p.image}/>
                         ))
                     }
                 </ProductContainer>
+
                 <ShopFooter></ShopFooter>
             </ShopContent>
         </ShopContainer>
@@ -44,7 +66,6 @@ const HeaderLeft = styled.div`
 `
 
 const HeaderRight = styled.div`
-
 `
 
 const ShopHeader = styled.div`

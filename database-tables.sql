@@ -21,7 +21,6 @@ CREATE TABLE product_image (
     id UUID NOT NULL,
     product_id UUID NOT NULL,
 	picture_name text NOT NULL,
-    picture_location text NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (product_id) REFERENCES product(id)
 );

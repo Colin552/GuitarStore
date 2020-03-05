@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var client = require('../client.js');
-
+var path = require('path');
+var fs = require('fs')
 /* get all products. */
 router.get('/', function (req, res, next) {
 
@@ -55,7 +56,29 @@ router.get('/category/:id', function (req, res, next) {
                 console.log(err.stack);
             }
             else {
-                res.send(products.rows);
+                //res.send(products.rows);
+                var tempProducts = products.rows;
+                var productObjects = [];
+                
+                
+
+                for(i = 0; i < tempProducts.length; i++){ 
+                    //console.log(tempProducts[i].id);
+                    let filePath = path.join(__dirname, '../../images/' + tempProducts[i].product_id + '/' + 'profile' + '.png');
+                    let base64Image;
+
+                    try {
+                        base64Image = fs.readFileSync(filePath, 'base64');
+                    }
+                    catch(error){
+                        console.error(error)
+                    }
+                    
+                    let productObj = {product_name: tempProducts[i].product_name, price: tempProducts[i].price, brand_name: tempProducts[i].brand_name, image: base64Image}
+                    productObjects.push(productObj)
+                }
+
+                res.send(productObjects);
             }
         })
         
