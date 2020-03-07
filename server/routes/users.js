@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var client = require('../client.js');
-
 var uuid = require('uuid');
+
 /* Get users listing. */
 router.get('/', function (req, res, next) {
   let queryString = "SELECT * from user_account"
