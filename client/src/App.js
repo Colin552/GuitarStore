@@ -5,6 +5,7 @@ import Home from './views/Home.js';
 import About from './views/About.js';
 import Contact from './views/Contact.js';
 import ProductSearch from './views/ProductSearch.js';
+import Account from './views/Account.js';
 
 import Product from './views/Product.js';
 import Login from './views/Login.js';
@@ -24,25 +25,14 @@ function App() {
         <Switch>
           <BodyContainer>
             <ContentContainer>
-              
+
               <Route path='/' exact>
                 <Home />
               </Route>
-              <Route path='/shop' exact>
-                <ProductSearch />
-              </Route>
-              <Route path='/shop/electric'>
-                <ProductSearch />
-              </Route>
-              <Route path='/shop/acoustic'>
-                <ProductSearch />
-              </Route> 
-              <Route path='/shop/amplifiers'>
-                <ProductSearch />
-              </Route>
-              <Route path='/shop/tools'>
-                <ProductSearch />
-              </Route>                           
+
+              <Route path='/category/:category' component={ProductSearch} />
+
+
               <Route path='/contact' exact>
                 <Contact />
               </Route>
@@ -55,7 +45,9 @@ function App() {
               <Route path='/product'>
                 <Product />
               </Route>
-
+              <Route path='/account' exact>
+                <Account />
+              </Route>
             </ContentContainer>
           </BodyContainer>
         </Switch>

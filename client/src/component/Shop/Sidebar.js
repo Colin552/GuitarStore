@@ -9,10 +9,10 @@ const Sidebar = () => {
         <SidebarOuter>
             <SidebarInner>
                 <SidebarHeader>Categories</SidebarHeader>
-                <Category to='/shop/electric'>Electric Guitars</Category>
-                <Category to='/shop/acoustic'>Acoustic Guitars</Category>
-                <Category to='/shop/amplifiers'>Amplifiers</Category>
-                <Category to='/shop/tools'>Parts &amp; tools</Category>
+                <Category to='/category/electric'>Electric Guitars</Category>
+                <Category to='/category/acoustic'>Acoustic Guitars</Category>
+                <Category to='/category/amplifiers'>Amplifiers</Category>
+                <Category to='/category/tools'>Parts &amp; tools</Category>
 
                 <SidebarInnerHeader>Price</SidebarInnerHeader>
                 <Category to='/'>Up to $499</Category>

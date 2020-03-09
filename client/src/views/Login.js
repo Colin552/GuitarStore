@@ -1,10 +1,118 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { LoginRequest } from './../API/APIRequests.js'
+import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
-    return(
-        <div>
-            Login 
-        </div>
+    const [getEmailLogin, setEmailLogin] = useState("");
+    const [getPasswordLogin, setPasswordLogin] = useState("");
+    const [getEmailSignup, setEmailSignup] = useState("");
+    const [getPasswordSignup, setPasswordSignup] = useState("");
+    const [getFirstNameSignup, setFirstNameSignup] = useState("");
+    const [getLastNameSignup, setLastNameSignup] = useState("");
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const handleLogin = (event) => {
+        event.preventDefault();
+        /*
+        LoginRequest(getEmailLogin, getPasswordLogin)
+        .then(dispatch({ type: "LOGIN" }))
+        .then(history.push("/"));
+        */
+        
+        fetch('http://localhost:3000/users/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: getEmailLogin,
+                password: getPasswordLogin
+            })
+        })
+        .then(res => res.json())
+        .then(json => {
+            if(json.user){
+                dispatch({ type: "LOGIN"});
+                localStorage.setItem('user',JSON.stringify(json.user));
+                history.push("/")
+            }
+        })
+        
+
+    }
+    const handleSignup = (event) => {
+        //SignupRequest(event, getEmailSignup, getPasswordSignup, getFirstNameSignup, getLastNameSignup)
+    }
+
+    return (
+        <React.Fragment>
+            <h3>Login</h3>
+            <form onSubmit={handleLogin}>
+                <label>Email:
+                    <input
+                        type="text"
+                        value={getEmailLogin}
+                        onChange={e => setEmailLogin(e.target.value)}
+                        required
+                    />
+
+                </label>
+                <br />
+                <label>Password:
+                    <input
+                        type="password"
+                        value={getPasswordLogin}
+                        onChange={e => setPasswordLogin(e.target.value)}
+                        required
+                    />
+                </label>
+                <br />
+                <input type="submit" value="Submit" />
+            </form>
+            <br />
+            <h3>Signup</h3>
+            <form onSubmit={handleSignup}>
+                <label>First Name:
+                    <input
+                        type="text"
+                        value={getFirstNameSignup}
+                        onChange={e => setFirstNameSignup(e.target.value)}
+                        required
+                    />
+                </label>
+                <br />
+                <label>Last Name:
+                    <input
+                        type="text"
+                        value={getLastNameSignup}
+                        onChange={e => setLastNameSignup(e.target.value)}
+                        required
+                    />
+                </label>
+                <br />
+                <label>Email:
+                    <input
+                        type="text"
+                        value={getEmailSignup}
+                        onChange={e => setEmailSignup(e.target.value)}
+                        required
+                    />
+                </label>
+                <br />
+                <label>Password:
+                    <input
+                        type="password"
+                        value={getPasswordSignup}
+                        onChange={e => setPasswordSignup(e.target.value)}
+                        required />
+                </label>
+                <br />
+                <input type="submit" value="Submit" />
+            </form>
+        </React.Fragment>
     )
 }
 

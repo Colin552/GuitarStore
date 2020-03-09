@@ -1,26 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
     Link
 } from "react-router-dom";
 
 const Navbar = () => {
+
+    const [getLogin, setLogin] = useState("");
+    const loggedIn = useSelector(state => state.loggedIn);
+    useEffect(() => {
+        if (localStorage.getItem('user') && loggedIn) {
+            setLogin(<NavLink to='/account'>My Account</NavLink>)
+        } else {
+            setLogin(<NavLink to='/login'>Login</NavLink>)
+        }
+    }, [loggedIn])
+
     return (
-        <header>
-            <NavContainer>
-                <NavContent>
-                    <NavBrand to='/'>The Riff</NavBrand>
-                    <NavLinks>
-                        <NavLink to='/shop'>Shop</NavLink>
-                        <NavLink to='/about'>About</NavLink>
-                        <NavLink to='/contact'>Contact</NavLink>
-                    </NavLinks>
-                    <NavRight>
-                        <NavLink to='/login'>Login</NavLink>
-                    </NavRight>
-                </NavContent>
-            </NavContainer>
-        </header>
+
+        <NavContainer>
+            <NavContent>
+                <NavBrand to='/'>The Riff</NavBrand>
+                <NavLinks>
+                    <NavLink to='/category/electric'>Shop</NavLink>
+                    <NavLink to='/about'>About</NavLink>
+                    <NavLink to='/contact'>Contact</NavLink>
+                </NavLinks>
+                <NavRight>
+                    {getLogin}
+
+                </NavRight>
+            </NavContent>
+        </NavContainer>
+
     )
 }
 

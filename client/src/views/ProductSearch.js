@@ -3,37 +3,38 @@ import styled from 'styled-components';
 import Sidebar from '../component/Shop/Sidebar';
 import ProductCard from '../component/Shop/ProductCard.js';
 import HeaderDropdown from '../component/Shop/HeaderDropdown.js'
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from "react-redux";
 
-const ProductSearch = () => {
-    const history = useHistory();
-    const dispatch = useDispatch();
+const ProductSearch = ({ match }) => {
+
     let [getProducts, setProducts] = useState([]);
-
-    switch(history.location.pathname){
-        case "/shop/electric":
-            dispatch({type: 'SET_CATEGORY', value:"ELECTRIC"});
+    let categoryURL;
+    
+    switch (match.params.category) {
+        case "electric":
+            categoryURL = "7d705cfe-4bff-414d-b451-6f873d35df82"
             break;
-        case "/shop/acoustic":
-            dispatch({type: 'SET_CATEGORY', value:"ACOUSTIC"});
+        case "acoustic":
+            categoryURL = "61d58012-ce72-4aab-ae50-545a035a3c64"
             break;
-        case "/shop/amplifiers":
-            dispatch({type: 'SET_CATEGORY', value:"AMPLIFIER"});
+        case "bass":
+            categoryURL = "f8a70250-1408-11ea-aaef-0800200c9a66"
             break;
-        case "/shop/tools":
-            dispatch({type: 'SET_CATEGORY', value:"TOOLS"});
+        case "amplifiers":
+            categoryURL = "c4931990-1408-11ea-aaef-0800200c9a66"
+            break;
+        case "tools":
             break;
         default:
-            dispatch({type: 'SET_CATEGORY', value:""});
+
     }
 
     useEffect(() => {
-        fetch('http://localhost:3000/products/category/7d705cfe-4bff-414d-b451-6f873d35df82')
-        .then(res => res.json())
-        .then(json => setProducts(json))
-        
-    }, []);
+
+        fetch('http://localhost:3000/products/category/' + categoryURL)
+            .then(res => res.json())
+            .then(json => setProducts(json))
+
+    }, [categoryURL]);
 
     return (
         <ShopContainer>
@@ -48,8 +49,8 @@ const ProductSearch = () => {
                 </ShopHeader>
                 <ProductContainer>
                     {
-                        getProducts.map((p, index) => (
-                            <ProductCard key = {index} product_name = {p.product_name} brand_name = {p.brand_name} price = {p.price} image = {p.image}/>
+                        getProducts.map((p, index) => (                            
+                            <ProductCard key={index} product_name={p.product_name} brand_name={p.brand_name} price={p.price} image={p.image} />
                         ))
                     }
                 </ProductContainer>
