@@ -8,6 +8,13 @@ const ProductSearch = ({ match }) => {
 
     let [getProducts, setProducts] = useState([]);
     let categoryURL;
+    let productCards = [];
+
+    for(let i = 0; i < getProducts.length; i++){
+        if(getProducts[i].listed){
+            productCards.push(<ProductCard key={i} product_name={getProducts[i].product_name} brand_name={getProducts[i].brand_name} price={getProducts[i].price} image={getProducts[i].image} />)
+        }
+    }
     
     switch (match.params.category) {
         case "electric":
@@ -35,6 +42,8 @@ const ProductSearch = ({ match }) => {
             .then(json => setProducts(json))
 
     }, [categoryURL]);
+    
+
 
     return (
         <ShopContainer>
@@ -49,9 +58,7 @@ const ProductSearch = ({ match }) => {
                 </ShopHeader>
                 <ProductContainer>
                     {
-                        getProducts.map((p, index) => (                            
-                            <ProductCard key={index} product_name={p.product_name} brand_name={p.brand_name} price={p.price} image={p.image} />
-                        ))
+                       productCards
                     }
                 </ProductContainer>
 

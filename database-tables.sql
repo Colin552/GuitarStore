@@ -1,5 +1,3 @@
-
-
 CREATE TABLE brand (
     id UUID NOT NULL,
     brand_name varchar(255) NOT NULL,

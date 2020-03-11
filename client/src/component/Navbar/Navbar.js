@@ -4,17 +4,30 @@ import styled from 'styled-components';
 import {
     Link
 } from "react-router-dom";
+import { checkLogin, checkAdmin } from '../../_helpers/helpers.js'
 
 const Navbar = () => {
 
     const [getLogin, setLogin] = useState("");
     const loggedIn = useSelector(state => state.loggedIn);
+
     useEffect(() => {
-        if (localStorage.getItem('user') && loggedIn) {
+        if (checkLogin()) {
             setLogin(<NavLink to='/account'>My Account</NavLink>)
+
+            if (checkAdmin()) {
+                setLogin(
+                    <React.Fragment>
+                        <NavLink to='/account'>My Account</NavLink>
+                        <NavLink to='/admin'>Admin</NavLink>
+                    </React.Fragment>
+                )
+            }
+
         } else {
             setLogin(<NavLink to='/login'>Login</NavLink>)
         }
+
     }, [loggedIn])
 
     return (

@@ -6,6 +6,8 @@ import About from './views/About.js';
 import Contact from './views/Contact.js';
 import ProductSearch from './views/ProductSearch.js';
 import Account from './views/Account.js';
+import Admin from './views/Admin';
+import FileModify from './views/FileModify';
 
 import Product from './views/Product.js';
 import Login from './views/Login.js';
@@ -48,6 +50,12 @@ function App() {
               <Route path='/account' exact>
                 <Account />
               </Route>
+              <Route path='/admin' exact> <Admin /> </Route>
+
+              
+              <Route path='/admin/:type' exact component={FileModify}/>
+
+
             </ContentContainer>
           </BodyContainer>
         </Switch>

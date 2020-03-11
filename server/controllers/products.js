@@ -37,7 +37,7 @@ exports.getByID = (req, res, next) => {
 
 exports.getByCategoryID = (req, res, next) => {
     let value = [req.params.id];
-    let queryString = "SELECT product_category.product_id, product.product_name, product.price, brand.brand_name \
+    let queryString = "SELECT product_category.product_id, product.product_name, product.listed, product.price, brand.brand_name \
                         FROM product_category \
                         INNER JOIN product \
                         ON product_category.product_id=product.id \
@@ -69,7 +69,7 @@ exports.getByCategoryID = (req, res, next) => {
                         console.error(error)
                     }
 
-                    let productObj = { id: tempProducts[i].product_id, product_name: tempProducts[i].product_name, price: tempProducts[i].price, brand_name: tempProducts[i].brand_name, image: base64Image }
+                    let productObj = { id: tempProducts[i].product_id, product_name: tempProducts[i].product_name, price: tempProducts[i].price, listed: tempProducts[i].listed, brand_name: tempProducts[i].brand_name, image: base64Image }
                     productObjects.push(productObj)
                 }
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { LoginRequest } from './../API/APIRequests.js'
+//import { LoginRequest } from './../API/APIRequests.js'
+import { headerA } from "../API/header";
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 
@@ -13,20 +14,21 @@ const Login = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    let test = headerA;
+    //console.log(test)
+
     const handleLogin = (event) => {
         event.preventDefault();
-        /*
-        LoginRequest(getEmailLogin, getPasswordLogin)
-        .then(dispatch({ type: "LOGIN" }))
-        .then(history.push("/"));
-        */
         
         fetch('http://localhost:3000/users/login', {
             method: 'POST',
+            
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
+            
+           //headers: header,
             body: JSON.stringify({
                 email: getEmailLogin,
                 password: getPasswordLogin
@@ -44,7 +46,30 @@ const Login = () => {
 
     }
     const handleSignup = (event) => {
-        //SignupRequest(event, getEmailSignup, getPasswordSignup, getFirstNameSignup, getLastNameSignup)
+        event.preventDefault();
+
+        fetch('http://localhost:3000/users/signup', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: getEmailSignup,
+                password: getPasswordSignup,
+                firstName: getFirstNameSignup,
+                lastName: getLastNameSignup
+            })
+        })
+        .then(res => res.json())
+        .then(json => {
+            console.log(json)
+            if(json.user){
+                dispatch({ type: "LOGIN"});
+                localStorage.setItem('user',JSON.stringify(json.user));
+                history.push("/")
+            }
+        })
     }
 
     return (

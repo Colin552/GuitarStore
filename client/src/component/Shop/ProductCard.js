@@ -20,7 +20,7 @@ const ProductCard = (props) => {
             {productImg()}
             <ProductInfo>
                 <ProductTitle>{props.brand_name} {props.product_name}</ProductTitle>
-                <ProductPrice>{props.price}</ProductPrice>
+                <ProductPrice>${props.price}</ProductPrice>
             </ProductInfo>
         </CardContainer>
     )

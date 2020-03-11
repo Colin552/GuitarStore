@@ -77,7 +77,7 @@ exports.signup = (req, res, next) => {
                                 error: err
                             })
                         } else {
-                            const user = {
+                            const tempUser = {
                                 id: uuid.v4(),
                                 first_name: req.body.firstName,
                                 last_name: req.body.lastName,
@@ -88,7 +88,7 @@ exports.signup = (req, res, next) => {
                                 shipping_address: req.body.shippingAddress
                             }
 
-                            let values = [user.id, user.first_name, user.last_name, user.password, user.user_type, user.email, user.billing_address, user.shipping_address];
+                            let values = [tempUser.id, tempUser.first_name, tempUser.last_name, tempUser.password, tempUser.user_type, tempUser.email, tempUser.billing_address, tempUser.shipping_address];
 
                             let queryString = "INSERT INTO user_account(id, first_name, last_name, password, user_type, email, billing_address, shipping_address) \
                                  VALUES ($1, $2, $3, $4, $5, $6, $7, $8);"
@@ -102,7 +102,21 @@ exports.signup = (req, res, next) => {
                                         })
                                     }
                                     else {
-                                        res.send('Success, User created');
+                                        token = jwt.sign({
+                                            email: tempUser.email,
+                                            id: tempUser.id
+                                        },
+                                            process.env.JWT_KEY,
+                                            {
+                                                expiresIn: "1h"
+                                            }
+                                        )
+                                        let user;
+                                        return res.status(200).json({
+                                            message: 'Authentication successful',
+                                            user: { firstName: tempUser.first_name, lastName: tempUser.last_name, userType: tempUser.user_type, token }
+
+                                        })
                                     }
                                 })
                         }
@@ -167,7 +181,7 @@ exports.login = (req, res, next) => {
 
                             return res.status(200).json({
                                 message: 'Authentication successful',
-                                user: { firstName: users.rows[0].first_name, lastName: users.rows[0].last_name, token: token },
+                                user: { firstName: users.rows[0].first_name, lastName: users.rows[0].last_name, userType: users.rows[0].user_type, token: token },
                             })
                         }
                         res.status(401).json({
