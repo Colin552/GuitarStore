@@ -39,6 +39,7 @@ CREATE TABLE product_category (
     FOREIGN KEY (product_id) REFERENCES product(id)
 );
 
+/*
 CREATE TABLE user_account (
     id UUID NOT NULL,
     first_name varchar(50),
@@ -50,6 +51,21 @@ CREATE TABLE user_account (
     shipping_address text,
     PRIMARY KEY (id)
 );
+*/
+CREATE TABLE user_account (
+    id UUID NOT NULL,
+    first_name varchar(50),
+    last_name varchar(50),
+    password varchar(128) NOT NULL,
+    user_type CHAR NOT NULL,
+    email varchar(128) UNIQUE NOT NULL,
+    apartment varchar(50),
+    country varchar(50),
+    province varchar(50),
+    postal varchar(20),
+    PRIMARY KEY (id)
+);
+
 
 CREATE TABLE user_order (
     id UUID NOT NULL,

@@ -2,6 +2,7 @@ const client = require('../client.js');
 const path = require('path');
 const uuid = require('uuid');
 const fs = require('fs');
+
 /*Returns all products*/
 exports.getAll = (req, res, next) => {
     let queryString = "SELECT product.product_name, product.price, brand.brand_name \
@@ -20,7 +21,7 @@ exports.getAll = (req, res, next) => {
 
 exports.getByID = (req, res, next) => {
     let value = [req.params.id];
-    let queryString = "SELECT product.product_name, product.price, brand.brand_name \
+    let queryString = "SELECT product.product_name, product.price, product.description, brand.brand_name \
                         FROM product INNER JOIN brand ON product.brand_id=brand.id \
                         WHERE product.id = $1";
 
@@ -30,7 +31,24 @@ exports.getByID = (req, res, next) => {
                 console.log(err.stack);
             }
             else {
-                res.send(products.rows);
+                let tempImages = [];
+                try {
+                    let filePath = path.join(__dirname, '../../images/' + value);                 
+                    fs.readdirSync(filePath).forEach(fileName => {                                               
+                        let image = path.join(__dirname, '../../images/' + value + '/' + fileName); 
+                        if (fileName != 'profile.png'){
+                            let base64Image = fs.readFileSync(image, 'base64');
+                            tempImages.push(base64Image); 
+                        }
+                                          
+                    })                   
+                    
+                    let tempProduct = { id: value[0], product_name: products.rows[0].product_name, price: products.rows[0].price, brand_name: products.rows[0].brand_name, description: products.rows[0].description, images: tempImages};
+                    res.send(tempProduct)
+                }
+                catch (error) {
+                    console.error(error)
+                }
             }
         })
 }

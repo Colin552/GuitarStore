@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+var client = require('../client.js');
 const UsersController = require('../controllers/users');
 const checkAuth = require('../middleware/check-auth')
 const checkAuthAdmin = require('../middleware/check-admin');
@@ -25,7 +25,21 @@ router.delete('/:email', checkAuthAdmin, UsersController.delete);
 
 /* Update a user. */
 router.patch('/', function (req, res, next) {
-  res.send('Update user');
+  //console.log(req.body)
+  let values = [req.body.id, req.body.first_name, req.body.last_name, req.body.address, req.body.apartment, req.body.city, req.body.province, req.body.country, req.body.postal]
+  let queryString = "UPDATE user_account SET \
+                    first_name = $2, last_name = $3, address = $4, apartment = $5, city = $6, province = $7, country = $8, postal = $9\
+                    WHERE id = $1"
+  console.log(values)
+  client.query(queryString, values,
+    (err) => {
+      if (err) {
+        console.log(err.stack);
+      }
+      else {
+        res.status(200).send(`Update Successful`)
+      }
+    })
 });
 
 

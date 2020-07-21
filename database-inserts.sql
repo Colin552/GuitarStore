@@ -65,6 +65,9 @@ VALUES ('fda081f0-1408-11ea-aaef-0800200c9a66', 'Electric Bass Guitars', 'f8a702
 INSERT INTO category (id, category_name, parent_id)
 VALUES ('036d3010-1409-11ea-aaef-0800200c9a66', 'Acoustic Bass Guitars', 'f8a70250-1408-11ea-aaef-0800200c9a66');
 
+INSERT INTO category (id, category_name)
+VALUES ('2ef359c0-265f-473a-abde-bb18d34a4404', 'Parts & Tools');
+
 /* Brands */
 INSERT INTO brand (id, brand_name)
 VALUES ('085f35a0-1409-11ea-aaef-0800200c9a66', 'Fender');
@@ -107,3 +110,6 @@ INSERT INTO product_image (id, product_id, picture_name)
 VALUES ( '3341d048-6f48-49e6-8fe7-7e7b48cb0ebd','31768c70-140b-11ea-aaef-0800200c9a66', 'profile');
 INSERT INTO product_image (id, product_id, picture_name)
 VALUES ( 'b3709eae-3963-4ee0-9b62-c4171df2fc0c','36403460-1409-11ea-aaef-0800200c9a66', 'profile');
+
+INSERT INTO cart_product(user_id, product_id, quantity)
+VALUES('26c9180b-461d-4ec7-ac7f-b9a1b6211cbd', '31768c70-140b-11ea-aaef-0800200c9a66', 1)

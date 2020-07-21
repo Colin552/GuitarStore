@@ -1,40 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import {
-    Link
-} from "react-router-dom";
-import { checkLogin, checkAdmin } from '../../_helpers/helpers.js'
+import { Link } from "react-router-dom";
+import { checkLogin } from '../../_helpers/helpers.js'
+
+import Logo from '../logo.js';
+import CartIcon from '../../icons/cart';
+import AccountIcon from '../../icons/account';
 
 const Navbar = () => {
-
     const [getLogin, setLogin] = useState("");
     const loggedIn = useSelector(state => state.loggedIn);
 
     useEffect(() => {
         if (checkLogin()) {
-            setLogin(<NavLink to='/account'>My Account</NavLink>)
+            setLogin(
+                <React.Fragment>
+                    <NavLink to='/account'><AccountIcon /></NavLink>
+                    <NavLink to='/cart'><CartIcon /></NavLink>
+                </React.Fragment>
 
-            if (checkAdmin()) {
-                setLogin(
-                    <React.Fragment>
-                        <NavLink to='/account'>My Account</NavLink>
-                        <NavLink to='/admin'>Admin</NavLink>
-                    </React.Fragment>
-                )
-            }
+            )
 
         } else {
-            setLogin(<NavLink to='/login'>Login</NavLink>)
+            setLogin(<NavLink to='/login'><AccountIcon /></NavLink>)
         }
 
     }, [loggedIn])
-
     return (
-
         <NavContainer>
             <NavContent>
-                <NavBrand to='/'>The Riff</NavBrand>
+                <NavBrand to='/'>The Riff <Logo /></NavBrand>
                 <NavLinks>
                     <NavLink to='/category/electric'>Shop</NavLink>
                     <NavLink to='/about'>About</NavLink>
@@ -43,25 +39,25 @@ const Navbar = () => {
                 <NavRight>
                     {getLogin}
 
+
                 </NavRight>
             </NavContent>
         </NavContainer>
-
     )
 }
 
 export default Navbar;
 
 
+
 const NavLink = styled(Link)`
     text-decoration: none;
-    color: white;
+    color: black;
     margin-right: 20px;
     &:focus, &:hover, &:visited, &:link, &:active {
         text-decoration: none;
-        color: white;
+        color: black;
     }
-
 `
 
 const NavRight = styled.div`
@@ -81,13 +77,18 @@ const NavLinks = styled.div`
 const NavBrand = styled(Link)`
     display: inline-block;
     text-decoration: none;
-    color: white;
+    color: black;
     font-size: 18px;
     font-weight: bold;
 
     &:focus, &:hover, &:visited, &:link, &:active {
+        
         text-decoration: none;
-        color: white;
+        color: black;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        margin-left: 10px;
     }
 `
 
@@ -104,10 +105,10 @@ const NavContent = styled.div`
 const NavContainer = styled.div`
     display: grid;
     grid-template-columns: auto 1200px auto;
-    background: #49B4FF;
+    background: white;
     height: 50px;
     align-content: center;
-
+    box-shadow: 0px 2px 8px #888888;
     @media only screen and (max-width: 1200px) {
         grid-template-columns: auto;
     }

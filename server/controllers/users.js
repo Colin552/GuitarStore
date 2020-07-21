@@ -30,7 +30,7 @@ exports.getById = (req, res, next) => {
                 })
             }
             else {
-                res.send(users.rows);
+                res.send(users.rows[0]);
             }
         })
 }
@@ -84,14 +84,12 @@ exports.signup = (req, res, next) => {
                                 password: hash,
                                 user_type: "C",
                                 email: req.body.email,
-                                billing_address: req.body.billingAddress,
-                                shipping_address: req.body.shippingAddress
                             }
 
-                            let values = [tempUser.id, tempUser.first_name, tempUser.last_name, tempUser.password, tempUser.user_type, tempUser.email, tempUser.billing_address, tempUser.shipping_address];
+                            let values = [tempUser.id, tempUser.first_name, tempUser.last_name, tempUser.password, tempUser.user_type, tempUser.email];
 
-                            let queryString = "INSERT INTO user_account(id, first_name, last_name, password, user_type, email, billing_address, shipping_address) \
-                                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8);"
+                            let queryString = "INSERT INTO user_account(id, first_name, last_name, password, user_type, email) \
+                                 VALUES ($1, $2, $3, $4, $5, $6);"
 
                             client.query(queryString, values,
                                 (err) => {
@@ -114,7 +112,7 @@ exports.signup = (req, res, next) => {
                                         let user;
                                         return res.status(200).json({
                                             message: 'Authentication successful',
-                                            user: { firstName: tempUser.first_name, lastName: tempUser.last_name, userType: tempUser.user_type, token }
+                                            user: { id:tempUser.id, firstName: tempUser.first_name, lastName: tempUser.last_name, userType: tempUser.user_type, token }
 
                                         })
                                     }
@@ -129,6 +127,7 @@ exports.signup = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
+    console.log()
     let value = [req.body.email];
     let queryString = "SELECT * from user_account \
                         WHERE email = $1";
@@ -150,6 +149,7 @@ exports.login = (req, res, next) => {
                 } else {
                     bcrypt.compare(req.body.password, users.rows[0].password, (err, result) => {
                         if (err) {
+                            console.log(err)
                             return res.status(401).json({
                                 message: 'Authentication failed'
                             })
@@ -181,7 +181,7 @@ exports.login = (req, res, next) => {
 
                             return res.status(200).json({
                                 message: 'Authentication successful',
-                                user: { firstName: users.rows[0].first_name, lastName: users.rows[0].last_name, userType: users.rows[0].user_type, token: token },
+                                user: { id:users.rows[0].id, firstName: users.rows[0].first_name, lastName: users.rows[0].last_name, userType: users.rows[0].user_type, token: token },
                             })
                         }
                         res.status(401).json({

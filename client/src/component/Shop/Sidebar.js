@@ -1,9 +1,51 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
+const Sidebar = (props) => {
 
-const Sidebar = () => {
+    const brands = () => {
+        switch (props.category) {
+            case 'electric':
+                return (
+                    <React.Fragment>
+                        <Category to='/category/electric/fender'>Fender</Category>
+                        <Category to='/category/electric/gibson'>Gibson</Category>
+                        <Category to='/category/electric/squier'>Squier</Category>
+                        <Category to='/category/electric/epiphone'>Epiphone</Category>
+                        <Category to='/category/electric/ibanez'>Ibanez</Category>
+                    </React.Fragment>
+                )
+            case 'acoustic':
+                return(
+                    <React.Fragment>
+                        <Category to='/category/acoustic/gibson'>Gibson</Category>
+                        <Category to='/category/acoustic/taylor'>Taylor</Category>
+                        <Category to='/category/acoustic/yamaha'>Yamaha</Category>
+                    </React.Fragment>
+                )
+            case 'amplifiers':
+                return(
+                    <React.Fragment>
+                        <Category to='/category/amplifiers/blackstar'>Blackstar</Category>
+                        <Category to='/category/amplifiers/fender'>Fender</Category>
+                        <Category to='/category/amplifiers/boss'>Boss</Category>
+                    </React.Fragment>
+                )
+            case 'tools':
+                return(
+                    <React.Fragment>
+                        <Category to='/tools/dunlop'>Dunlop</Category>
+                        <Category to='/tools/yorkville'>Yorkville</Category>
+                        <Category to='/tools/hercules'>Hercules</Category>
+                    </React.Fragment>
+                )
+            default:
+                break;
+        }
+    }
+
+    let brandCategories = brands();
 
     return (
         <SidebarOuter>
@@ -14,18 +56,8 @@ const Sidebar = () => {
                 <Category to='/category/amplifiers'>Amplifiers</Category>
                 <Category to='/category/tools'>Parts &amp; tools</Category>
 
-                <SidebarInnerHeader>Price</SidebarInnerHeader>
-                <Category to='/'>Up to $499</Category>
-                <Category to='/'>$500 to $749</Category>
-                <Category to='/'>$750 to $1199</Category>
-                <Category to='/'>$1199 to $2000</Category>
-
                 <SidebarInnerHeader>Brand</SidebarInnerHeader>
-                <Category to='/'>Fender</Category>
-                <Category to='/'>Gibson</Category>
-                <Category to='/'>Squier</Category>
-                <Category to='/'>Epiphone</Category>
-                <Category to='/'>Ibanez</Category>
+                {brandCategories}
             </SidebarInner>
         </SidebarOuter>
     )

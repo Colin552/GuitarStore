@@ -16,7 +16,7 @@ const ProductCard = (props) => {
     }
 
     return (
-        <CardContainer onClick={() => history.push('/product/' + props.product_name)}>
+        <CardContainer onClick={() => history.push('/product/' + props.id)}>
             {productImg()}
             <ProductInfo>
                 <ProductTitle>{props.brand_name} {props.product_name}</ProductTitle>

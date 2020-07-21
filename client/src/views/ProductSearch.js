@@ -3,19 +3,57 @@ import styled from 'styled-components';
 import Sidebar from '../component/Shop/Sidebar';
 import ProductCard from '../component/Shop/ProductCard.js';
 import HeaderDropdown from '../component/Shop/HeaderDropdown.js'
+import { useSelector } from 'react-redux'
+//import {Link} from "react-router-dom";
 
 const ProductSearch = ({ match }) => {
 
     let [getProducts, setProducts] = useState([]);
+    let filterBy = useSelector(state => state.filter)
     let categoryURL;
     let productCards = [];
 
-    for(let i = 0; i < getProducts.length; i++){
-        if(getProducts[i].listed){
-            productCards.push(<ProductCard key={i} product_name={getProducts[i].product_name} brand_name={getProducts[i].brand_name} price={getProducts[i].price} image={getProducts[i].image} />)
+    let tempProducts = getProducts;
+
+
+    if (filterBy.filter === "HIGH_TO_LOW") {
+        tempProducts.sort((a, b) => {
+            if (a.price > b.price) {
+                return 1
+            }
+            else {
+                return -1
+            }
+        })
+    } else {
+        tempProducts.sort((a, b) => {
+            if (a.price < b.price) {
+                return 1
+            }
+            else {
+                return -1
+            }
+        })
+    }
+
+    if(match.params.brand){
+        for (let i = 0; i < tempProducts.length; i++) {
+            if (tempProducts[i].listed) {
+                if(match.params.brand === tempProducts[i].brand_name.toString().toLowerCase()){
+                    productCards.push(<ProductCard key={i} id={tempProducts[i].id} product_name={tempProducts[i].product_name} brand_name={tempProducts[i].brand_name} price={tempProducts[i].price} image={tempProducts[i].image} />)
+                }
+            }
+        }
+    }else{
+        for (let i = 0; i < tempProducts.length; i++) {
+            if (tempProducts[i].listed) {
+                productCards.push(<ProductCard key={i} id={tempProducts[i].id} product_name={tempProducts[i].product_name} brand_name={tempProducts[i].brand_name} price={tempProducts[i].price} image={tempProducts[i].image} />)
+            }
         }
     }
-    
+
+
+
     switch (match.params.category) {
         case "electric":
             categoryURL = "7d705cfe-4bff-414d-b451-6f873d35df82"
@@ -30,9 +68,10 @@ const ProductSearch = ({ match }) => {
             categoryURL = "c4931990-1408-11ea-aaef-0800200c9a66"
             break;
         case "tools":
+            categoryURL = "2ef359c0-265f-473a-abde-bb18d34a4404"
             break;
         default:
-
+            categoryURL = ""
     }
 
     useEffect(() => {
@@ -41,24 +80,31 @@ const ProductSearch = ({ match }) => {
             .then(res => res.json())
             .then(json => setProducts(json))
 
-    }, [categoryURL]);
-    
+    }, [categoryURL, filterBy]);
 
+    let RootHeader = () => {
+        if (match.params.category) {
+            return ("Home  > " + match.params.category);
+        }
+        else {
+            return "Home";
+        }
+    }
 
     return (
         <ShopContainer>
             <SidebarContainer>
-                <Sidebar />
+                <Sidebar category={match.params.category}/>
             </SidebarContainer>
 
             <ShopContent>
                 <ShopHeader>
-                    <HeaderLeft>Home</HeaderLeft>
-                    <HeaderRight>Filter By <HeaderDropdown /> Page: 1, 2, 3 ... 11</HeaderRight>
+                    <HeaderLeft>{RootHeader()}</HeaderLeft>
+                    <HeaderRight><HeaderDropdown /></HeaderRight>
                 </ShopHeader>
                 <ProductContainer>
                     {
-                       productCards
+                        productCards
                     }
                 </ProductContainer>
 

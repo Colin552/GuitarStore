@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from "react-redux";
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const Account = () => {
-
+const Checkout = () => {
     const [getFirstName, setFirstName] = useState("");
     const [getLastName, setLastName] = useState("");
     const [getAddress, setAddress] = useState("");
@@ -13,85 +10,39 @@ const Account = () => {
     const [getCountry, setCountry] = useState("");
     const [getProvince, setProvince] = useState("");
     const [getPostal, setPostal] = useState("");
-    
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const user = JSON.parse(localStorage.getItem('user'))
 
-    useEffect(() =>{
-        fetch('http://localhost:3000/users/' + user.id, {
-            method: 'GET',
+    let user = localStorage.getItem('user');
+    user = JSON.parse(user);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        let formedAddress = '';
+        formedAddress = getAddress;
+        formedAddress += ' ' + getApartment;
+        formedAddress += ' ' + getCity;
+        formedAddress += ' ' + getCountry;
+        formedAddress += ' ' + getPostal;
+        console.log(formedAddress)
+        console.log(user.id)
+        /*
+        fetch('http://localhost:3000/user-order/', {
+            method:'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': user.token
-            },
-        })
-            .then(res => res.json())
-            .then(json => {
-                setFirstName(json.first_name)
-                setLastName(json.last_name)
-                if(json.city){
-                    setCity(json.city)
-                }
-                if(json.address){
-                    setAddress(json.address)
-                }
-                if(json.apartment){
-                    setApartment(json.apartment)
-                }
-                if(json.country){
-                    setCountry(json.country)
-                }
-                if(json.province){
-                    setProvince(json.province)
-                }
-                if(json.postal){
-                    setPostal(json.postal)
-                }
-            })
-    },[])
-
-
-
-
-    const handleLogout = () => {
-        dispatch({ type: "LOGOUT" });
-        localStorage.removeItem('user');
-        localStorage.removeItem('cartProducts');
-        history.push("/");
-    }
-
-    const handleUpdate = (e) => {
-
-        fetch('http://localhost:3000/users/', {
-            method: 'PATCH',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': user.token
             },
             body: JSON.stringify({
-                id: user.id,
-                first_name: getFirstName,
-                last_name: getLastName,
-                address: getAddress,
-                apartment: getApartment,
-                city: getCity,
-                province: getProvince,
-                country: getCountry,
-                postal: getPostal
+                user_id: user.id
+                
             })
         })
+        */
     }
-
     return (
         <React.Fragment>
-            <Title>My Account</Title>
+            <Title>Checkout</Title>
             <br />
-            <p>My Info</p>
-
-            <form onSubmit={handleUpdate}>
+            Shipping Address
+            <form onSubmit={handleSubmit}>
                 <FormWrapper>
                     <Input
                         placeholder='First Name'
@@ -135,38 +86,17 @@ const Account = () => {
                         value={getPostal}
                         onChange={e => setPostal(e.target.value)}
                     />
-
                 </FormWrapper>
-                <Submit>Update</Submit>
+                <Submit>Submit</Submit>
             </form>
-            <br />
-            <Submit onClick={handleLogout}>Logout</Submit>
-            <br /><br />
-            <h3>My Orders</h3>
-            <Orders>
-                <Order>
-                    <OrderProduct></OrderProduct>
-                </Order>
-            </Orders>
         </React.Fragment>
     )
 }
 
-export default Account;
+export default Checkout;
 
 const Title = styled.h3`
     margin-top: 10px;
-`
-
-const Orders = styled.div`
-
-`
-
-const Order = styled.div`
-`
-
-const OrderProduct = styled.div`
-
 `
 
 const FormWrapper = styled.div`

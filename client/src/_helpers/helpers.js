@@ -1,11 +1,11 @@
 export function checkLogin(_logged) {
 
-    let loggedIn = false;
+    let loggedIn = true;
 
-    if (localStorage.getItem('user') ) {
-        loggedIn = true;
+    if (localStorage.getItem('user') === null ) {
+        loggedIn = false;
     }
-
+    
     return loggedIn;
 }
 
